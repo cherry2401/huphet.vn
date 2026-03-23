@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import styles from "@/components/site-header.module.css";
 import type { User } from "@supabase/supabase-js";
@@ -19,6 +19,20 @@ const NAV_ITEMS = [
   { href: "/voucher", label: "Voucher" },
   { href: "/live", label: "Xu Live" },
   { href: "/blog", label: "Blog" },
+];
+
+/* ── Universal search items ── */
+const SEARCH_ITEMS = [
+  { href: "/deal", label: "Deal 1K", desc: "Flash sale đồng giá 1K, 9K, 29K", icon: "🏷️", keywords: ["deal", "1k", "9k", "29k", "flash sale", "giảm giá", "khuyến mãi", "shopee"] },
+  { href: "/tiktok-sale", label: "TikTok Sale", desc: "Sản phẩm hot từ TikTok Shop", icon: "🎵", keywords: ["tiktok", "tik tok", "sale", "sản phẩm"] },
+  { href: "/hoan-tien", label: "Hoàn Tiền", desc: "Mua sắm hoàn tiền đến 90%", icon: "💰", keywords: ["hoàn tiền", "cashback", "hoàn", "tiền", "ví", "wallet"] },
+  { href: "/tao-link", label: "Tạo Link", desc: "Tạo link affiliate lấy mã giảm giá", icon: "🔗", keywords: ["tạo link", "link", "affiliate", "mã giảm giá"] },
+  { href: "/voucher", label: "Mã Giảm Giá", desc: "Voucher Shopee, Tiki, Lazada", icon: "🎟️", keywords: ["voucher", "mã", "giảm giá", "coupon", "shopee", "tiki", "lazada"] },
+  { href: "/live", label: "Xu Live", desc: "Cào xu livestream Shopee miễn phí", icon: "📺", keywords: ["xu", "live", "livestream", "cào xu", "shopee live"] },
+  { href: "/blog", label: "Blog", desc: "Mẹo mua sắm, review sản phẩm", icon: "📝", keywords: ["blog", "bài viết", "review", "mẹo", "hướng dẫn"] },
+  { href: "/tai-khoan", label: "Tài Khoản", desc: "Quản lý tài khoản cá nhân", icon: "👤", keywords: ["tài khoản", "account", "cá nhân", "profile"] },
+  { href: "/rut-tien", label: "Rút Tiền", desc: "Rút tiền hoàn về tài khoản", icon: "🏦", keywords: ["rút tiền", "rút", "chuyển tiền", "ngân hàng"] },
+  { href: "/login", label: "Đăng Nhập", desc: "Đăng nhập bằng Google", icon: "🔐", keywords: ["đăng nhập", "login", "google"] },
 ];
 
 /* ── Minimal mono SVG icons ── */
@@ -140,6 +154,22 @@ export function SiteHeader() {
     setSearchQuery("");
     router.push(`/deal?q=${encodeURIComponent(q)}`);
   }, [searchQuery, router]);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return SEARCH_ITEMS.filter((item) =>
+      item.label.toLowerCase().includes(q) ||
+      item.desc.toLowerCase().includes(q) ||
+      item.keywords.some((kw) => kw.includes(q))
+    ).slice(0, 6);
+  }, [searchQuery]);
+
+  const handleResultClick = useCallback((href: string) => {
+    setSearchOpen(false);
+    setSearchQuery("");
+    router.push(href);
+  }, [router]);
 
   const avatarUrl = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email || "";
@@ -348,7 +378,7 @@ export function SiteHeader() {
                   ref={searchInputRef}
                   type="text"
                   className={styles.searchInput}
-                  placeholder="Tìm deal, voucher, sản phẩm..."
+                  placeholder="Tìm chức năng, trang, sản phẩm..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   autoComplete="off"
@@ -364,23 +394,63 @@ export function SiteHeader() {
                   </button>
                 )}
               </div>
-              <button type="submit" className={styles.searchSubmit} disabled={!searchQuery.trim()}>
-                Tìm
-              </button>
             </form>
-            <div className={styles.searchHints}>
-              <span>Gợi ý:</span>
-              {["Deal 1K", "Cà phê", "Sữa rửa mặt", "Kem chống nắng"].map((hint) => (
+
+            {/* Kết quả tìm kiếm */}
+            {searchQuery.trim() ? (
+              <div className={styles.searchResults}>
+                {searchResults.length > 0 ? (
+                  searchResults.map((item) => (
+                    <button
+                      key={item.href}
+                      type="button"
+                      className={styles.searchResultItem}
+                      onClick={() => handleResultClick(item.href)}
+                    >
+                      <span className={styles.searchResultIcon}>{item.icon}</span>
+                      <div className={styles.searchResultText}>
+                        <span className={styles.searchResultLabel}>{item.label}</span>
+                        <span className={styles.searchResultDesc}>{item.desc}</span>
+                      </div>
+                      <svg className={styles.searchResultArrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                    </button>
+                  ))
+                ) : null}
+                {/* Luôn hiện option search deal */}
                 <button
-                  key={hint}
                   type="button"
-                  className={styles.searchHintChip}
-                  onClick={() => { setSearchQuery(hint); searchInputRef.current?.focus(); }}
+                  className={styles.searchResultItem}
+                  onClick={() => handleSearchSubmit()}
                 >
-                  {hint}
+                  <span className={styles.searchResultIcon}>🔍</span>
+                  <div className={styles.searchResultText}>
+                    <span className={styles.searchResultLabel}>Tìm &quot;{searchQuery}&quot; trong Deal</span>
+                    <span className={styles.searchResultDesc}>Tìm sản phẩm deal phù hợp</span>
+                  </div>
+                  <svg className={styles.searchResultArrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
                 </button>
-              ))}
-            </div>
+              </div>
+            ) : (
+              /* Gợi ý khi chưa gõ */
+              <div className={styles.searchResults}>
+                <div className={styles.searchSectionLabel}>Truy cập nhanh</div>
+                {SEARCH_ITEMS.slice(0, 6).map((item) => (
+                  <button
+                    key={item.href}
+                    type="button"
+                    className={styles.searchResultItem}
+                    onClick={() => handleResultClick(item.href)}
+                  >
+                    <span className={styles.searchResultIcon}>{item.icon}</span>
+                    <div className={styles.searchResultText}>
+                      <span className={styles.searchResultLabel}>{item.label}</span>
+                      <span className={styles.searchResultDesc}>{item.desc}</span>
+                    </div>
+                    <svg className={styles.searchResultArrow} width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </>
       )}

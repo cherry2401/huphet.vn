@@ -288,7 +288,6 @@
 .searchForm {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
 .searchInputWrap {
@@ -349,58 +348,85 @@
   background: rgba(0, 0, 0, 0.14);
 }
 
-.searchSubmit {
-  padding: 12px 24px;
-  border-radius: 14px;
-  border: none;
-  background: var(--brand);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.92rem;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 180ms ease, opacity 180ms ease;
+/* ===== SEARCH RESULTS ===== */
+.searchResults {
+  margin-top: 12px;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
-.searchSubmit:hover:not(:disabled) {
-  background: var(--brand-dark);
+.searchSectionLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 4px 6px;
 }
 
-.searchSubmit:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.searchHints {
+.searchResultItem {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-
-.searchHints > span {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.searchHintChip {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  font-size: 0.82rem;
-  font-weight: 500;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 8px;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 180ms ease;
+  text-align: left;
+  transition: background 150ms ease;
 }
 
-.searchHintChip:hover {
-  border-color: var(--brand);
-  color: var(--brand);
-  background: rgba(var(--brand-rgb, 232, 93, 47), 0.05);
+.searchResultItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.searchResultItem:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.searchResultIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg, #f5f5f5);
+  border-radius: 10px;
+}
+
+.searchResultText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.searchResultLabel {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchResultDesc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.searchResultArrow {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  opacity: 0.4;
 }
 
 /* Drawer — hidden on desktop */
