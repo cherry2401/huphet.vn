@@ -22,17 +22,17 @@ const NAV_ITEMS = [
 ];
 
 /* ── Universal search items ── */
-const SEARCH_ITEMS = [
-  { href: "/deal", label: "Deal 1K", desc: "Flash sale đồng giá 1K, 9K, 29K", icon: "🏷️", keywords: ["deal", "1k", "9k", "29k", "flash sale", "giảm giá", "khuyến mãi", "shopee"] },
-  { href: "/tiktok-sale", label: "TikTok Sale", desc: "Sản phẩm hot từ TikTok Shop", icon: "🎵", keywords: ["tiktok", "tik tok", "sale", "sản phẩm"] },
-  { href: "/hoan-tien", label: "Hoàn Tiền", desc: "Mua sắm hoàn tiền đến 90%", icon: "💰", keywords: ["hoàn tiền", "cashback", "hoàn", "tiền", "ví", "wallet"] },
-  { href: "/tao-link", label: "Tạo Link", desc: "Tạo link affiliate lấy mã giảm giá", icon: "🔗", keywords: ["tạo link", "link", "affiliate", "mã giảm giá"] },
-  { href: "/voucher", label: "Mã Giảm Giá", desc: "Voucher Shopee, Tiki, Lazada", icon: "🎟️", keywords: ["voucher", "mã", "giảm giá", "coupon", "shopee", "tiki", "lazada"] },
-  { href: "/live", label: "Xu Live", desc: "Cào xu livestream Shopee miễn phí", icon: "📺", keywords: ["xu", "live", "livestream", "cào xu", "shopee live"] },
-  { href: "/blog", label: "Blog", desc: "Mẹo mua sắm, review sản phẩm", icon: "📝", keywords: ["blog", "bài viết", "review", "mẹo", "hướng dẫn"] },
-  { href: "/tai-khoan", label: "Tài Khoản", desc: "Quản lý tài khoản cá nhân", icon: "👤", keywords: ["tài khoản", "account", "cá nhân", "profile"] },
-  { href: "/rut-tien", label: "Rút Tiền", desc: "Rút tiền hoàn về tài khoản", icon: "🏦", keywords: ["rút tiền", "rút", "chuyển tiền", "ngân hàng"] },
-  { href: "/login", label: "Đăng Nhập", desc: "Đăng nhập bằng Google", icon: "🔐", keywords: ["đăng nhập", "login", "google"] },
+const SEARCH_ITEMS: { href: string; label: string; desc: string; icon: React.ReactNode; keywords: string[] }[] = [
+  { href: "/deal", label: "Deal 1K", desc: "Flash sale đồng giá 1K, 9K, 29K", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="m20.59 13.41-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82Z"/><circle cx="7" cy="7" r="1"/></svg>, keywords: ["deal", "1k", "9k", "29k", "flash sale", "giảm giá", "khuyến mãi", "shopee"] },
+  { href: "/tiktok-sale", label: "TikTok Sale", desc: "Sản phẩm hot từ TikTok Shop", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>, keywords: ["tiktok", "tik tok", "sale", "sản phẩm"] },
+  { href: "/hoan-tien", label: "Hoàn Tiền", desc: "Mua sắm hoàn tiền đến 90%", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M2 10h20"/></svg>, keywords: ["hoàn tiền", "cashback", "hoàn", "tiền", "ví", "wallet"] },
+  { href: "/tao-link", label: "Tạo Link", desc: "Tạo link affiliate lấy mã giảm giá", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>, keywords: ["tạo link", "link", "affiliate", "mã giảm giá"] },
+  { href: "/voucher", label: "Mã Giảm Giá", desc: "Voucher Shopee, Tiki, Lazada", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></svg>, keywords: ["voucher", "mã", "giảm giá", "coupon", "shopee", "tiki", "lazada"] },
+  { href: "/live", label: "Xu Live", desc: "Cào xu livestream Shopee miễn phí", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>, keywords: ["xu", "live", "livestream", "cào xu", "shopee live"] },
+  { href: "/blog", label: "Blog", desc: "Mẹo mua sắm, review sản phẩm", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>, keywords: ["blog", "bài viết", "review", "mẹo", "hướng dẫn"] },
+  { href: "/tai-khoan", label: "Tài Khoản", desc: "Quản lý tài khoản cá nhân", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>, keywords: ["tài khoản", "account", "cá nhân", "profile"] },
+  { href: "/rut-tien", label: "Rút Tiền", desc: "Rút tiền hoàn về tài khoản", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>, keywords: ["rút tiền", "rút", "chuyển tiền", "ngân hàng"] },
+  { href: "/login", label: "Đăng Nhập", desc: "Đăng nhập bằng Google", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, keywords: ["đăng nhập", "login", "google"] },
 ];
 
 /* ── Minimal mono SVG icons ── */
@@ -422,7 +422,7 @@ export function SiteHeader() {
                   className={styles.searchResultItem}
                   onClick={() => handleSearchSubmit()}
                 >
-                  <span className={styles.searchResultIcon}>🔍</span>
+                  <span className={styles.searchResultIcon}><IconSearch /></span>
                   <div className={styles.searchResultText}>
                     <span className={styles.searchResultLabel}>Tìm &quot;{searchQuery}&quot; trong Deal</span>
                     <span className={styles.searchResultDesc}>Tìm sản phẩm deal phù hợp</span>
