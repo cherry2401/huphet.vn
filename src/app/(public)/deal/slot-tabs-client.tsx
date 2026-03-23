@@ -108,7 +108,7 @@ export function SlotTabsClient({ slotTabs, activeSlot, activePrice, availableSlo
         <div className={styles.countdownBar}>
           <span className={styles.countdownIcon}>⏱</span>
           <span className={styles.countdownLabel}>{timeline.text}</span>
-          <span className={styles.countdownTime}>{timeline.time}</span>
+          <span className={styles.countdownTime} suppressHydrationWarning>{timeline.time}</span>
         </div>
       ) : null}
     </div>
