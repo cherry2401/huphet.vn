@@ -4,6 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useCallback } from "react";
 import { useState, useEffect, useRef } from "react";
 import { createClient } from "@/lib/supabase/client";
 import styles from "@/components/site-header.module.css";
@@ -38,6 +39,10 @@ const IconLogout = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
 );
 
+const IconSearch = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+);
+
 const IconWithdraw = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
 );
@@ -56,7 +61,10 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const supabase = createClient();
@@ -80,8 +88,9 @@ export function SiteHeader() {
       prevPathname.current = pathname;
       if (menuOpen) setMenuOpen(false);
       if (dropdownOpen) setDropdownOpen(false);
+      if (searchOpen) { setSearchOpen(false); setSearchQuery(""); }
     }
-  }, [pathname, menuOpen, dropdownOpen]);
+  }, [pathname, menuOpen, dropdownOpen, searchOpen]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -94,15 +103,43 @@ export function SiteHeader() {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when menu or search is open
   useEffect(() => {
-    if (menuOpen) {
+    if (menuOpen || searchOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
+  }, [menuOpen, searchOpen]);
+
+  // Focus search input when overlay opens
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [searchOpen]);
+
+  // Close search on Escape
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape" && searchOpen) {
+        setSearchOpen(false);
+        setSearchQuery("");
+      }
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [searchOpen]);
+
+  const handleSearchSubmit = useCallback((e?: React.FormEvent) => {
+    e?.preventDefault();
+    const q = searchQuery.trim();
+    if (!q) return;
+    setSearchOpen(false);
+    setSearchQuery("");
+    router.push(`/deal?q=${encodeURIComponent(q)}`);
+  }, [searchQuery, router]);
 
   const avatarUrl = user?.user_metadata?.avatar_url || user?.user_metadata?.picture;
   const displayName = user?.user_metadata?.full_name || user?.user_metadata?.name || user?.email || "";
@@ -214,6 +251,16 @@ export function SiteHeader() {
           </Link>
         )}
 
+        {/* Search button */}
+        <button
+          className={styles.searchBtn}
+          onClick={() => setSearchOpen(true)}
+          aria-label="Tìm kiếm"
+          type="button"
+        >
+          <IconSearch />
+        </button>
+
         {/* Mobile hamburger button */}
         <button
           className={`${styles.hamburger} ${menuOpen ? styles.hamburgerOpen : ""}`}
@@ -288,6 +335,55 @@ export function SiteHeader() {
           </Link>
         )}
       </nav>
+
+      {/* Search overlay */}
+      {searchOpen && (
+        <>
+          <div className={styles.searchOverlay} onClick={() => { setSearchOpen(false); setSearchQuery(""); }} />
+          <div className={styles.searchPanel}>
+            <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
+              <div className={styles.searchInputWrap}>
+                <IconSearch />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder="Tìm deal, voucher, sản phẩm..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  autoComplete="off"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    className={styles.searchClear}
+                    onClick={() => { setSearchQuery(""); searchInputRef.current?.focus(); }}
+                    aria-label="Xóa"
+                  >
+                    ✕
+                  </button>
+                )}
+              </div>
+              <button type="submit" className={styles.searchSubmit} disabled={!searchQuery.trim()}>
+                Tìm
+              </button>
+            </form>
+            <div className={styles.searchHints}>
+              <span>Gợi ý:</span>
+              {["Deal 1K", "Cà phê", "Sữa rửa mặt", "Kem chống nắng"].map((hint) => (
+                <button
+                  key={hint}
+                  type="button"
+                  className={styles.searchHintChip}
+                  onClick={() => { setSearchQuery(hint); searchInputRef.current?.focus(); }}
+                >
+                  {hint}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }
