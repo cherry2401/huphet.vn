@@ -1,0 +1,100 @@
+.bottomNav {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 768px) {
+  .bottomNav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 90;
+    height: 56px;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .hidden {
+    transform: translateY(100%);
+  }
+
+  .navItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    flex: 1;
+    padding: 6px 0;
+    color: #9ca3af;
+    text-decoration: none;
+    transition: color 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .navItem:active {
+    opacity: 0.7;
+  }
+
+  .navItemActive {
+    color: var(--brand);
+  }
+
+  .navIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+
+  .navLabel {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    font-family: var(--font-body), sans-serif;
+  }
+
+  /* ── Center Deal button (nổi bật) ── */
+  .navItemCenter {
+    position: relative;
+    margin-top: -18px;
+  }
+
+  .navIconCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .navItemCenter:active .navIconCenter {
+    transform: scale(0.92);
+  }
+
+  .navItemCenter .navLabel {
+    color: var(--brand);
+    font-weight: 700;
+  }
+
+  .navItemCenter.navItemActive .navIconCenter {
+    background: linear-gradient(135deg, #c2410c, #ea580c);
+    box-shadow: 0 4px 18px rgba(234, 88, 12, 0.45);
+  }
+}

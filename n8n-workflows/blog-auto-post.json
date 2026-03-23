@@ -1,0 +1,234 @@
+{
+  "name": "Blog Auto Post (Telegram)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"]
+      },
+      "id": "trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [0, 0],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Blog Bot Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract URL and check for #publish flag\nconst message = $input.first().json.message?.text || '';\nconst urlMatch = message.match(/https?:\\/\\/[^\\s]+/);\nconst hasPublish = message.toLowerCase().includes('#publish');\n\nif (!urlMatch) {\n  throw new Error('Không tìm thấy URL trong tin nhắn!');\n}\n\nreturn [{\n  json: {\n    url: urlMatch[0],\n    shouldPublish: hasPublish,\n    chatId: $input.first().json.message?.chat?.id,\n    originalMessage: message\n  }\n}];"
+      },
+      "id": "extract-url",
+      "name": "Extract URL & Flags",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [220, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          },
+          "timeout": 15000
+        }
+      },
+      "id": "crawl-page",
+      "name": "Crawl Page",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Clean HTML to readable text\nconst html = $input.first().json.data || $input.first().json.body || '';\nconst prevData = $('Extract URL & Flags').first().json;\n\n// Remove script, style, nav, header, footer, sidebar\nlet clean = html\n  .replace(/<script[\\s\\S]*?<\\/script>/gi, '')\n  .replace(/<style[\\s\\S]*?<\\/style>/gi, '')\n  .replace(/<nav[\\s\\S]*?<\\/nav>/gi, '')\n  .replace(/<header[\\s\\S]*?<\\/header>/gi, '')\n  .replace(/<footer[\\s\\S]*?<\\/footer>/gi, '')\n  .replace(/<aside[\\s\\S]*?<\\/aside>/gi, '')\n  .replace(/<!--[\\s\\S]*?-->/g, '');\n\n// Extract title\nconst titleMatch = clean.match(/<title[^>]*>([^<]*)<\\/title>/i);\nconst ogTitleMatch = clean.match(/property=\"og:title\"\\s+content=\"([^\"]*)\"/i);\nconst pageTitle = ogTitleMatch?.[1] || titleMatch?.[1] || 'Untitled';\n\n// Extract cover image\nconst ogImageMatch = clean.match(/property=\"og:image\"\\s+content=\"([^\"]*)\"/i);\nconst coverImage = ogImageMatch?.[1] || '';\n\n// Extract main content\nconst articleMatch = clean.match(/<article[^>]*>([\\s\\S]*?)<\\/article>/i)\n  || clean.match(/<main[^>]*>([\\s\\S]*?)<\\/main>/i)\n  || clean.match(/<div[^>]*class=\"[^\"]*content[^\"]*\"[^>]*>([\\s\\S]*?)<\\/div>/i);\n\nlet content = articleMatch ? articleMatch[1] : clean;\n\n// Convert H tags\ncontent = content.replace(/<h[1-6][^>]*>(.*?)<\\/h[1-6]>/gi, '\\n## $1\\n');\n// Convert paragraphs\ncontent = content.replace(/<p[^>]*>/gi, '\\n').replace(/<\\/p>/gi, '\\n');\n// Convert lists\ncontent = content.replace(/<li[^>]*>/gi, '\\n- ').replace(/<\\/li>/gi, '');\n// Convert br\ncontent = content.replace(/<br\\s*\\/?>/gi, '\\n');\n// Remove remaining HTML tags\ncontent = content.replace(/<[^>]+>/g, '');\n// Clean up whitespace\ncontent = content.replace(/&nbsp;/g, ' ')\n  .replace(/&amp;/g, '&')\n  .replace(/&lt;/g, '<')\n  .replace(/&gt;/g, '>')\n  .replace(/&quot;/g, '\"')\n  .replace(/\\n{3,}/g, '\\n\\n')\n  .trim();\n\n// Limit content length for AI\nconst maxChars = 8000;\nif (content.length > maxChars) {\n  content = content.substring(0, maxChars) + '\\n\\n[... nội dung đã được cắt bớt]';\n}\n\nreturn [{\n  json: {\n    pageTitle,\n    coverImage,\n    rawContent: content,\n    url: prevData.url,\n    shouldPublish: prevData.shouldPublish,\n    chatId: prevData.chatId\n  }\n}];"
+      },
+      "id": "clean-html",
+      "name": "Clean HTML",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [660, 0]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Tiêu đề gốc: {{ $json.pageTitle }}\n\nNội dung gốc:\n{{ $json.rawContent }}",
+        "options": {
+          "systemMessage": "Bạn là một content writer chuyên nghiệp cho blog Việt Nam về mua sắm online, kiếm tiền online, review sản phẩm.\n\nNhiệm vụ: Viết lại bài viết gốc thành bài viết MỚI, UNIQUE với giọng văn SEO-friendly, chuyên nghiệp nhưng thân thiện.\n\nQuy tắc:\n- Viết lại hoàn toàn, KHÔNG copy nguyên văn\n- Giữ nguyên ý chính và thông tin quan trọng\n- Thêm heading (##), bullet points cho dễ đọc\n- Nội dung bằng HTML (dùng <h2>, <h3>, <p>, <ul>, <li>, <strong>, <em>)\n- Dài tối thiểu 800 từ\n- Tự nhiên, không máy móc\n\nDanh mục hiện có: Mẹo mua sắm, Shopee Affiliate, Review sản phẩm\nNếu không phù hợp danh mục nào, đề xuất tên danh mục mới bằng tiếng Việt.\n\nTrả về JSON (KHÔNG markdown code block):\n{\n  \"title\": \"Tiêu đề bài viết (hấp dẫn, SEO)\",\n  \"slug\": \"tieu-de-bai-viet-seo (lowercase, dấu gạch ngang, tiếng Việt không dấu)\",\n  \"excerpt\": \"Mô tả ngắn 150-200 ký tự\",\n  \"content\": \"Nội dung HTML đầy đủ\",\n  \"category_slug\": \"slug danh mục (meo-mua-sam | shopee-affiliate | review-san-pham | slug-moi)\",\n  \"category_name\": \"Tên danh mục\"\n}"
+        }
+      },
+      "id": "ai-rewrite",
+      "name": "AI Rewrite",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {
+          "temperature": 0.7
+        }
+      },
+      "id": "openai-model",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [900, 200],
+      "credentials": {
+        "openAiApi": {
+          "id": "OPENAI_CREDENTIAL_ID",
+          "name": "OpenAI API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse AI Agent response and prepare blog post data\nconst aiResponse = $input.first().json;\nconst prevData = $('Clean HTML').first().json;\n\n// AI Agent trả output ở field 'output' hoặc 'text'\nconst rawOutput = aiResponse.output || aiResponse.text || JSON.stringify(aiResponse);\n\nlet aiContent;\ntry {\n  // Remove markdown code blocks if present\n  const cleaned = rawOutput.replace(/```json\\n?/g, '').replace(/```\\n?/g, '').trim();\n  aiContent = JSON.parse(cleaned);\n} catch (e) {\n  throw new Error('AI trả về không đúng format JSON: ' + e.message + '\\nRaw: ' + rawOutput.substring(0, 500));\n}\n\nconst status = prevData.shouldPublish ? 'published' : 'draft';\n\nreturn [{\n  json: {\n    title: aiContent.title || prevData.pageTitle,\n    slug: aiContent.slug || prevData.pageTitle.toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-'),\n    excerpt: aiContent.excerpt || '',\n    content: aiContent.content || '',\n    cover_image: prevData.coverImage || '',\n    category_slug: aiContent.category_slug || 'meo-mua-sam',\n    category_name: aiContent.category_name || 'Mẹo mua sắm',\n    status: status,\n    chatId: prevData.chatId,\n    sourceUrl: prevData.url\n  }\n}];"
+      },
+      "id": "parse-ai",
+      "name": "Parse AI Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1100, 0]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.BLOG_API_URL || 'https://your-domain.com' }}/api/blog/auto-post",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{ $env.AUTO_POST_API_KEY || 'change-me' }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  title: $json.title,\n  slug: $json.slug,\n  excerpt: $json.excerpt,\n  content: $json.content,\n  cover_image: $json.cover_image,\n  category_slug: $json.category_slug,\n  status: $json.status\n}) }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "id": "post-blog",
+      "name": "Post to Blog API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1320, 0]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Parse AI Response').first().json.chatId }}",
+        "text": "={{ '✅ Đã đăng bài thành công!\\n\\n📝 ' + $('Parse AI Response').first().json.title + '\\n📂 ' + $('Parse AI Response').first().json.category_name + '\\n📊 Trạng thái: ' + ($('Parse AI Response').first().json.status === 'published' ? '🟢 Đã xuất bản' : '🟡 Bản nháp') + '\\n🔗 Nguồn: ' + $('Parse AI Response').first().json.sourceUrl }}",
+        "additionalFields": {
+          "parse_mode": "HTML"
+        }
+      },
+      "id": "reply-success",
+      "name": "Reply Success",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1540, 0],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Blog Bot Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Extract URL & Flags').first().json.chatId }}",
+        "text": "={{ '❌ Lỗi khi xử lý bài viết:\\n' + $input.first().json.error?.message || 'Lỗi không xác định' }}",
+        "additionalFields": {}
+      },
+      "id": "reply-error",
+      "name": "Reply Error",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [1320, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "TELEGRAM_CREDENTIAL_ID",
+          "name": "Blog Bot Telegram"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## 📝 Blog Auto Post (Telegram)\n\n**Flow:**\n1. Gửi URL bài viết vào Telegram\n2. Crawl nội dung từ URL\n3. AI Agent (OpenAI) viết lại bài\n4. Đăng lên blog qua API\n5. Reply kết quả về Telegram\n\n**Cách dùng:**\n- Gửi URL → Lưu bản nháp\n- Gửi URL + #publish → Đăng luôn\n\n**Cần cấu hình:**\n- Telegram Bot credential\n- OpenAI API Key (credential)\n- Environment Variables:\n  - `BLOG_API_URL`: URL website\n  - `AUTO_POST_API_KEY`: API key bảo mật",
+        "height": 420,
+        "width": 360
+      },
+      "id": "sticky-note",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [-300, -100]
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [{ "node": "Extract URL & Flags", "type": "main", "index": 0 }]
+      ]
+    },
+    "Extract URL & Flags": {
+      "main": [
+        [{ "node": "Crawl Page", "type": "main", "index": 0 }]
+      ]
+    },
+    "Crawl Page": {
+      "main": [
+        [{ "node": "Clean HTML", "type": "main", "index": 0 }]
+      ]
+    },
+    "Clean HTML": {
+      "main": [
+        [{ "node": "AI Rewrite", "type": "main", "index": 0 }]
+      ]
+    },
+    "AI Rewrite": {
+      "main": [
+        [{ "node": "Parse AI Response", "type": "main", "index": 0 }]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [{ "node": "AI Rewrite", "type": "ai_languageModel", "index": 0 }]
+      ]
+    },
+    "Parse AI Response": {
+      "main": [
+        [{ "node": "Post to Blog API", "type": "main", "index": 0 }]
+      ]
+    },
+    "Post to Blog API": {
+      "main": [
+        [{ "node": "Reply Success", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    { "name": "blog" },
+    { "name": "auto-post" }
+  ]
+}

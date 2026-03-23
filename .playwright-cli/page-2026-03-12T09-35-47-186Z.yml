@@ -1,0 +1,15 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [active]:
+      - button "bỏ qua nội dung chính":
+        - generic: bỏ qua nội dung chính
+  - dialog [ref=e8]:
+    - generic [ref=e9]:
+      - img "Worldmap" [ref=e11]
+      - generic [ref=e12]: Chọn ngôn ngữ của bạn
+      - generic [ref=e13]:
+        - button "Tiếng Việt" [ref=e15] [cursor=pointer]
+        - button "English" [ref=e17] [cursor=pointer]
+        - button "ខ្មែរ" [ref=e19] [cursor=pointer]
+  - generic:
+    - img

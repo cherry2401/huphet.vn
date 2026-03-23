@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Shopee browser sync every 15 minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=15min
+Unit=shopee-browser-sync.service
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,276 @@
+/* ═══════════════════════════════════════════
+   Admin Layout — Modern Dashboard (Drivergo-inspired)
+   ═══════════════════════════════════════════ */
+
+.wrapper {
+  display: flex;
+  min-height: 100vh;
+  background: #f4f6f8;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  width: 260px;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-right: 1px solid #eef0f3;
+  padding: 0;
+  overflow-y: auto;
+  z-index: 100;
+  transition: box-shadow 200ms ease;
+}
+
+/* ── Brand ── */
+.sidebarBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 22px;
+  text-decoration: none;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.brandIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.brandName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1d23;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.brandSub {
+  font-size: 0.68rem;
+  color: #8b95a5;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-top: 1px;
+}
+
+/* ── Nav Container ── */
+.navContainer {
+  flex: 1;
+  padding: 8px 0;
+  overflow-y: auto;
+}
+
+/* ── Nav Sections ── */
+.navSection {
+  padding: 4px 14px 8px;
+}
+
+.navLabel {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a0a8b8;
+  padding: 12px 10px 8px;
+  margin: 0;
+}
+
+/* ── Nav Links ── */
+.navLink,
+.navLinkActive {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 180ms ease;
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.navLink {
+  color: #5a6578;
+}
+
+.navLink:hover {
+  background: #fff7ed;
+  color: #ea580c;
+}
+
+.navLinkActive {
+  background: #fff7ed;
+  color: #ea580c;
+  font-weight: 600;
+}
+
+.navLinkActive::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 20px;
+  border-radius: 0 4px 4px 0;
+  background: #f97316;
+}
+
+.navIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+}
+
+.navLinkActive .navIcon {
+  opacity: 1;
+  color: #ea580c;
+}
+
+.navLink:hover .navIcon {
+  opacity: 1;
+}
+
+/* ── Bottom Section ── */
+.navBottom {
+  padding: 14px;
+  border-top: 1px solid #eef0f3;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #8b95a5;
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+
+.backLink:hover {
+  background: #f4f6f8;
+  color: #1a1d23;
+}
+
+/* ── Content Area ── */
+.content {
+  flex: 1;
+  min-width: 0;
+  background: #f4f6f8;
+}
+
+/* ── Mobile Elements (hidden by default) ── */
+.mobileHeader {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 10px;
+  color: #1a1d23;
+  line-height: 1;
+}
+
+.hamburger:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.overlay {
+  display: none;
+}
+
+.mobileTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1a1d23;
+  letter-spacing: -0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — Sidebar hidden below 1024px
+   ═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    z-index: 200;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .sidebarOpen {
+    display: flex;
+  }
+
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+    z-index: 150;
+  }
+
+  .overlayVisible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobileHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #fff;
+    border-bottom: 1px solid #eef0f3;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}

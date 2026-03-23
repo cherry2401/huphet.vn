@@ -1,0 +1,470 @@
+.page {
+  min-height: 100vh;
+}
+
+.container {
+  width: min(540px, calc(100vw - 32px)); /* Narrower container like in mockup */
+  margin: 12px auto 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.headerTitle {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.headerTitle h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ea580c; /* Matches the vibrant orange in the mockup */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-display), sans-serif;
+}
+
+.titleIcon {
+  color: #ea580c;
+}
+
+.heroImage {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  display: block;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* domainPill removed */
+
+.clientWrapper {
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(234, 88, 12, 0.08); /* Soft orange shadow */
+  overflow: hidden;
+}
+
+.card {
+  padding: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.label svg {
+  color: #64748b;
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  height: 48px;
+  padding: 0 48px 0 16px; /* Space for paste button on the right */
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+.pasteButton {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.pasteButton:hover {
+  background: rgba(0,0,0,0.05);
+  color: var(--text);
+}
+
+.labelSub {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.inputSub {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  height: 40px;
+  padding: 0 12px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.inputSub:focus {
+  border-color: #ea580c;
+  box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.1);
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+}
+
+.checkboxWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxWrap input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #ea580c;
+  cursor: pointer;
+}
+
+.submitButton {
+  border: none;
+  border-radius: 8px;
+  height: 42px;
+  width: 100%;
+  background: #f97316;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitButton:hover {
+  background: #ea580c;
+}
+
+.submitButton[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ERROR & RESULT */
+.error {
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+  font-size: 0.88rem;
+}
+
+.result {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--line);
+}
+
+.resultRow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.resultLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.resultBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--brand);
+  background: var(--brand-soft);
+}
+
+.resultValue {
+  flex: 1;
+  min-width: 0;
+  word-break: break-all;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--brand-dark);
+}
+
+.copyButton {
+  border: none;
+  border-radius: 6px;
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.copyButton:hover {
+  background: var(--brand-dark);
+}
+
+/* PROVIDER TABS */
+.providerTabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+
+.providerTab {
+  flex: 1;
+  padding: 12px 8px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.providerTab:hover {
+  color: var(--text);
+  background: rgba(0,0,0,0.02);
+}
+
+.providerTabActive {
+  color: #ea580c;
+  border-bottom-color: #ea580c;
+}
+
+/* INSTRUCTION SECTION */
+.instructionSection {
+  background: #f8fafc;
+  padding: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.instructionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.instructionHeader h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.instructionList {
+  list-style: decimal inside;
+  color: #334155;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.instructionList li strong {
+  color: #0f172a;
+}
+
+.voucherImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 16px;
+  display: block;
+}
+
+.fbButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 1.5px solid #1877F2;
+  border-radius: 8px;
+  background: #fff;
+  color: #1877F2;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fbButton:hover {
+  background: #1877F2;
+  color: #fff;
+}
+
+.fbButton:hover svg {
+  fill: #fff;
+}
+
+/* TIPS BOX */
+.tipsBox {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.tipsTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.tipsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tipsList li {
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.5;
+  padding-left: 12px;
+  position: relative;
+}
+
+.tipsList li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.tipsList li strong {
+  color: #0f172a;
+}
+
+.voucherPreview {
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.voucherTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0f172a;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.voucherTitle svg {
+  color: #ea580c;
+}
+
+.voucherImg {
+  width: 100%;
+  display: block;
+}
+
+.fbButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid #1877F2;
+  border-radius: 6px;
+  background: transparent;
+  color: #1877F2;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.fbButton:hover {
+  background: #eef5ff;
+}
+
+@media (max-width: 600px) {
+  .headerTitle h1 {
+    font-size: 1.5rem;
+  }
+  .container {
+    width: calc(100vw - 32px);
+  }
+  .card, .instructionSection {
+    padding: 16px;
+  }
+  .providerTab {
+    font-size: 0.82rem;
+    padding: 10px 6px;
+  }
+}

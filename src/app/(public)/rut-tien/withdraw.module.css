@@ -1,0 +1,372 @@
+/* ===== RÚT TIỀN PAGE ===== */
+.container {
+  min-height: calc(100dvh - 64px);
+  background: linear-gradient(180deg, #eef2ff 0%, #f0f4ff 15%, #ffffff 40%, #fafafa 100%);
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 48px 24px 36px;
+  text-align: center;
+}
+
+.heroInner {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.heroTitle {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.heroHighlight {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== WALLET SUMMARY ===== */
+.walletGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.walletCard {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.walletValue {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 4px;
+  font-family: "Space Grotesk", var(--font-sans);
+}
+
+.walletLabel {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.walletHighlight {
+  color: #0ea5e9;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.cardTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== FORM ===== */
+.fieldGroup {
+  margin-bottom: 14px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.fieldInput {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: var(--text);
+  outline: none;
+  background: var(--surface, #fafafa);
+  transition: border-color 200ms;
+  box-sizing: border-box;
+}
+
+.fieldInput:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+}
+
+.amountInput {
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 14px;
+  font-family: "Space Grotesk", var(--font-sans);
+}
+
+.quickAmounts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.quickAmountBtn {
+  flex: 1 1 0;
+  min-width: 70px;
+  padding: 8px 6px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: var(--surface, #fafafa);
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms;
+  text-align: center;
+}
+
+.quickAmountBtn:hover {
+  border-color: #0ea5e9;
+  color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.04);
+}
+
+.quickAmountBtnActive {
+  border-color: #0ea5e9;
+  color: #fff;
+  background: #0ea5e9;
+}
+
+/* ===== BANK SELECTOR ===== */
+.bankSelector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background: var(--surface, #fafafa);
+  cursor: pointer;
+  transition: border-color 200ms;
+}
+
+.bankSelector:hover {
+  border-color: #0ea5e9;
+}
+
+/* ===== SUBMIT ===== */
+.submitBtn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 200ms;
+  margin-top: 4px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(14, 165, 233, 0.3);
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== MESSAGES ===== */
+.errorMsg {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  margin-bottom: 12px;
+}
+
+.successMsg {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+  margin-bottom: 12px;
+}
+
+/* ===== HISTORY TABLE ===== */
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.historyRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.historyRow:last-child {
+  border-bottom: none;
+}
+
+.historyIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.historyInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.historyAmount {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text);
+  font-family: "Space Grotesk", var(--font-sans);
+}
+
+.historyBank {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.historyDate {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.historyStatus {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.statusPending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.statusApproved {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.statusPaid {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.statusRejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ===== EMPTY STATE ===== */
+.emptyState {
+  text-align: center;
+  padding: 32px 16px;
+  color: var(--text-secondary);
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  opacity: 0.4;
+}
+
+.emptyText {
+  font-size: 0.85rem;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 640px) {
+  .hero {
+    padding: 32px 16px 24px;
+  }
+  .heroTitle {
+    font-size: 1.4rem;
+  }
+  .main {
+    padding: 0 14px 40px;
+    gap: 14px;
+  }
+  .walletGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .walletCard {
+    padding: 10px 6px;
+    text-align: center;
+  }
+  .walletValue {
+    font-size: 0.95rem;
+    margin: 0 0 2px;
+  }
+  .walletLabel {
+    font-size: 0.62rem;
+  }
+  .card {
+    padding: 18px;
+    border-radius: 14px;
+  }
+  .amountInput {
+    font-size: 1.1rem;
+  }
+}

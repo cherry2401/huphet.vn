@@ -1,0 +1,15 @@
+[Unit]
+Description=Shopee browser sync worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+WorkingDirectory=/opt/shopee-aff-site
+EnvironmentFile=/opt/shopee-aff-site/.env.worker
+ExecStart=/usr/bin/npm run worker:browser-sync -- shopee-sieu-re
+Nice=10
+
+[Install]
+WantedBy=multi-user.target

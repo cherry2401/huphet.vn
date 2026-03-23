@@ -1,0 +1,51 @@
+
+> shopee-aff-site@0.1.0 dev
+> next dev --hostname 0.0.0.0 --port 3000
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of i:\Website\hup-het\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * i:\Website\hup-het\shopee-aff-site\package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://0.0.0.0:3000
+- Environments: .env.local
+
+✓ Starting...
+✓ Ready in 2.8s
+ GET / 200 in 2.3s (compile: 2.0s, render: 251ms)
+ GET /admin 200 in 3.8s (compile: 595ms, render: 3.2s)
+ GET /deal 200 in 1630ms (compile: 457ms, render: 1173ms)
+ GET /deal 200 in 1268ms (compile: 3ms, render: 1265ms)
+ GET /deal?slot=1773403200&price=29k 200 in 853ms (compile: 4ms, render: 849ms)
+ GET /deal?slot=1773410400&price=29k 200 in 617ms (compile: 3ms, render: 613ms)
+ GET /deal?slot=1773410400&price=29k 200 in 610ms (compile: 2ms, render: 607ms)
+ GET /tao-link 200 in 415ms (compile: 386ms, render: 30ms)
+ GET /deal 200 in 985ms (compile: 3ms, render: 982ms)
+ GET /deal?slot=1773410400 200 in 878ms (compile: 3ms, render: 875ms)
+ GET /tao-link 200 in 19ms (compile: 2ms, render: 16ms)
+ GET /deal 200 in 984ms (compile: 3ms, render: 981ms)
+ GET /deal?slot=1773410400 200 in 921ms (compile: 2ms, render: 919ms)
+ GET /admin 200 in 1087ms (compile: 4ms, render: 1083ms)
+ GET /api/internal/shopee/status?pageUrl=shopee-sieu-re 200 in 1132ms (compile: 475ms, render: 657ms)
+ GET /admin 200 in 1019ms (compile: 2ms, render: 1017ms)
+ GET /deal 200 in 1142ms (compile: 3ms, render: 1139ms)
+ GET /tao-link 200 in 24ms (compile: 3ms, render: 21ms)
+ GET /deal 200 in 1255ms (compile: 1891µs, render: 1253ms)
+ GET /deal 200 in 1430ms (compile: 3ms, render: 1427ms)
+ GET /deal?slot=1773410400 200 in 1242ms (compile: 3ms, render: 1239ms)
+ GET /deal?slot=1773410400 200 in 922ms (compile: 2ms, render: 919ms)
+ GET /tao-link 200 in 17ms (compile: 1999µs, render: 15ms)
+ GET /deal 200 in 946ms (compile: 2ms, render: 944ms)
+ GET /admin 200 in 946ms (compile: 2ms, render: 944ms)
+ GET /deal 200 in 1608ms (compile: 3ms, render: 1605ms)
+ GET /deal 200 in 1692ms (compile: 3ms, render: 1690ms)
+ GET /deal?slot=1773388800 200 in 1048ms (compile: 2ms, render: 1046ms)
+ GET /deal 200 in 1946ms (compile: 2ms, render: 1944ms)
+ GET /deal 200 in 1214ms (compile: 2ms, render: 1211ms)
+ GET /tao-link 200 in 18ms (compile: 2ms, render: 16ms)
+ GET /deal 200 in 1050ms (compile: 1942µs, render: 1048ms)
+[?25h

@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-03-13T09:19:29.622Z",
+  "pageUrl": "tienve-partner",
+  "data": {
+    "pageUrl": "tienve-partner",
+    "generatedAt": "2026-03-13T09:19:29.622Z",
+    "updatedSlots": [
+      "1773388800",
+      "1773396000",
+      "1773403200",
+      "1773410400"
+    ],
+    "dealCount": 455,
+    "errors": [],
+    "slotResults": [
+      {
+        "slot": "1773388800",
+        "ok": true,
+        "dealCount": 105,
+        "error": null
+      },
+      {
+        "slot": "1773396000",
+        "ok": true,
+        "dealCount": 112,
+        "error": null
+      },
+      {
+        "slot": "1773403200",
+        "ok": true,
+        "dealCount": 119,
+        "error": null
+      },
+      {
+        "slot": "1773410400",
+        "ok": true,
+        "dealCount": 119,
+        "error": null
+      }
+    ],
+    "slotTabs": [
+      {
+        "slot": "1773388800",
+        "label": "15:00",
+        "sub": "15:00-17:00",
+        "startTimeSec": 1773388800,
+        "endTimeSec": 1773396000
+      },
+      {
+        "slot": "1773396000",
+        "label": "17:00",
+        "sub": "17:00-19:00",
+        "startTimeSec": 1773396000,
+        "endTimeSec": 1773403200
+      },
+      {
+        "slot": "1773403200",
+        "label": "19:00",
+        "sub": "19:00-21:00",
+        "startTimeSec": 1773403200,
+        "endTimeSec": 1773410400
+      },
+      {
+        "slot": "1773410400",
+        "label": "21:00",
+        "sub": "21:00-00:00",
+        "startTimeSec": 1773410400,
+        "endTimeSec": 1773421200
+      }
+    ],
+    "affiliate": {
+      "mode": "template",
+      "rewritten": 455,
+      "fallback": 0
+    }
+  }
+}

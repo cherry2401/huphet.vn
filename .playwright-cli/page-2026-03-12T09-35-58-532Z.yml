@@ -1,0 +1,32 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [active]:
+      - button "bỏ qua nội dung chính":
+        - generic: bỏ qua nội dung chính
+    - generic [ref=e22]:
+      - navigation [ref=e23]:
+        - generic [ref=e24]:
+          - link [ref=e26] [cursor=pointer]:
+            - /url: /
+            - img [ref=e27]
+          - link "Bạn cần giúp đỡ?" [ref=e30] [cursor=pointer]:
+            - /url: https://help.shopee.vn/vn/s
+      - generic [ref=e32]:
+        - generic [ref=e33]:
+          - img [ref=e34]
+          - generic [ref=e46]: Trang không khả dụng
+          - generic [ref=e47]: Rất tiếc, đã có lỗi xảy ra. Bạn vui lòng đăng nhập lại hoặc trở về Trang chủ nhé!
+          - generic [ref=e48]:
+            - button "Đăng nhập" [ref=e49] [cursor=pointer]
+            - button "Trở về trang chủ" [ref=e50] [cursor=pointer]
+        - generic [ref=e51]: "ID: 841433e9d5c-0de0-442c-a08e-b6e673227584"
+  - dialog [ref=e8]:
+    - generic [ref=e9]:
+      - img "Worldmap" [ref=e11]
+      - generic [ref=e12]: Chọn ngôn ngữ của bạn
+      - generic [ref=e13]:
+        - button "Tiếng Việt" [ref=e15] [cursor=pointer]
+        - button "English" [ref=e17] [cursor=pointer]
+        - button "ខ្មែរ" [ref=e19] [cursor=pointer]
+  - generic:
+    - img

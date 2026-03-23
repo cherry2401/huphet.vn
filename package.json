@@ -6,12 +6,35 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "extract:microsite": "node scripts/extract-shopee-microsite.mjs",
+    "sync:shopee-cache": "node scripts/sync-shopee-cache.mjs",
+    "sync:partner-cache": "node scripts/sync-partner-cache.mjs",
+    "worker:browser-sync": "node worker/browser-sync.mjs",
+    "worker:bootstrap": "node worker/bootstrap.mjs",
+    "worker:bootstrap-live": "node worker/bootstrap-live.mjs",
+    "worker:login": "node worker/login-helper.mjs",
+    "worker:affiliate-login": "node worker/login-affiliate-helper.mjs",
+    "worker:affiliate-open-profile": "node worker/open-affiliate-profile.mjs",
+    "worker:install-browser": "npx playwright install chromium"
   },
   "dependencies": {
-    "next": "16.1.6",
+    "@supabase/ssr": "^0.9.0",
+    "@supabase/supabase-js": "^2.58.0",
+    "@tiptap/extension-image": "^3.20.2",
+    "@tiptap/extension-link": "^3.20.2",
+    "@tiptap/extension-placeholder": "^3.20.2",
+    "@tiptap/extension-underline": "^3.20.2",
+    "@tiptap/pm": "^3.20.2",
+    "@tiptap/react": "^3.20.2",
+    "@tiptap/starter-kit": "^3.20.2",
+    "isomorphic-dompurify": "^3.5.1",
+    "next": "^16.1.7",
+    "playwright": "^1.52.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -19,6 +42,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.18"
   }
 }

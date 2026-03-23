@@ -1,0 +1,7 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [active]:
+      - button "bỏ qua nội dung chính":
+        - generic: bỏ qua nội dung chính
+  - generic:
+    - img

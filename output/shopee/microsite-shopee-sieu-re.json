@@ -1,0 +1,199 @@
+{
+  "fetchedAt": "2026-03-12T09:42:19.965Z",
+  "pageUrl": "shopee-sieu-re",
+  "micrositeId": 68693,
+  "anchors": [
+    {
+      "label": "FLASH SALE",
+      "anchoredComponentIds": [
+        "488736391259658"
+      ]
+    },
+    {
+      "label": "VOUCHER",
+      "anchoredComponentIds": [
+        "629393147356341"
+      ]
+    },
+    {
+      "label": "ĐỒNG GIÁ",
+      "anchoredComponentIds": [
+        "112539197363889"
+      ]
+    },
+    {
+      "label": "XEM LIVE",
+      "anchoredComponentIds": [
+        "877495244892286"
+      ]
+    },
+    {
+      "label": "DEAL SIÊU RẺ",
+      "anchoredComponentIds": [
+        "1715815056286"
+      ]
+    },
+    {
+      "label": "TẶNG RIÊNG BẠN",
+      "anchoredComponentIds": [
+        "1715815056398"
+      ]
+    }
+  ],
+  "productCollections": [
+    {
+      "feId": "425811748747493",
+      "collectionId": 1170897,
+      "componentName": "Thời trang giá rẻ",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "425811748747493",
+      "collectionId": 1170902,
+      "componentName": "Nhu yếu phẩm",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "425811748747493",
+      "collectionId": 1170901,
+      "componentName": "Vật dụng hằng ngày",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056252",
+      "collectionId": 1745388,
+      "componentName": "NUIRebateCollection_1745388",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "226991371215341",
+      "collectionId": 4065752,
+      "componentName": "top deal_4065752",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "596922877582593",
+      "collectionId": 8296240,
+      "componentName": "FlatPrice_3kcoll8296240",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "696552172166635",
+      "collectionId": 1506170,
+      "componentName": "FlatPrice_9kcoll 1506170",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "121532365352411",
+      "collectionId": 7329362,
+      "componentName": "FlatPrice_29kcoll 7329362",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "849573444542719",
+      "collectionId": 1184959,
+      "componentName": "Seasonal coll_1184959",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "547224339984455",
+      "collectionId": 1651076,
+      "componentName": "AddOn_coll_1651076",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056290",
+      "collectionId": 4221432,
+      "componentName": "#Em Xinh",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056290",
+      "collectionId": 4221534,
+      "componentName": "#\"F5\" Tủ Đồ",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056290",
+      "collectionId": 4221430,
+      "componentName": "#Ăn Vặt",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056290",
+      "collectionId": 4221570,
+      "componentName": "#Học, Chơi",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "1715815056290",
+      "collectionId": 4221536,
+      "componentName": "#Đẹp Góc Nhỏ",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "199712159293124",
+      "collectionId": 8732002,
+      "componentName": "SSC CNLS_8732002",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "498331781572367",
+      "collectionId": 7214460,
+      "componentName": "VCX_7214460",
+      "hook": "Product Collection"
+    },
+    {
+      "feId": "768429315652986",
+      "collectionId": 7520166,
+      "componentName": "FBS_7520166",
+      "hook": "Product Collection"
+    }
+  ],
+  "voucherCollections": [
+    {
+      "componentId": 41280400,
+      "feId": "268769692599476",
+      "micrositeId": 68693,
+      "voucherCollectionId": "79448732830982",
+      "componentName": "Voucher FSV ",
+      "numberOfVouchersPerRow": 1,
+      "hook": "Voucher Grid"
+    },
+    {
+      "componentId": 41280401,
+      "feId": "386564455446549",
+      "micrositeId": 68693,
+      "voucherCollectionId": "48063569075565",
+      "componentName": "Voucher New users ",
+      "numberOfVouchersPerRow": 1,
+      "hook": "Voucher Grid"
+    },
+    {
+      "componentId": 41280484,
+      "feId": "361844881452499",
+      "micrositeId": 68693,
+      "voucherCollectionId": "43924351129575",
+      "componentName": "FBS_2vc",
+      "numberOfVouchersPerRow": 2,
+      "hook": "Voucher Grid"
+    },
+    {
+      "componentId": 41280485,
+      "feId": "772518736238656",
+      "micrositeId": 68693,
+      "voucherCollectionId": "82387150909545",
+      "componentName": "FBS_1vc",
+      "numberOfVouchersPerRow": 1,
+      "hook": "Voucher Grid"
+    }
+  ],
+  "flashSales": [
+    {
+      "feId": "619223349797785",
+      "componentName": "FlashsaleTab_57",
+      "categoryId": 57,
+      "redirectUrl": "https://shopee.vn/flash_sale?categoryId=57"
+    }
+  ]
+}

@@ -1,0 +1,300 @@
+/* ===== CONTAINER ===== */
+.container {
+  min-height: 100vh;
+  background: var(--bg-page, #f8fafc);
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffad42 100%);
+  padding: 48px 16px 36px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.heroInner {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.heroIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: #fff;
+}
+.heroTitle {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.heroHighlight {
+  background: linear-gradient(120deg, #fff700, #ffe066);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.heroSubtitle {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.88rem;
+  margin-top: 6px;
+}
+
+/* ===== MAIN ===== */
+.main {
+  max-width: 640px;
+  margin: -24px auto 0;
+  padding: 0 16px 48px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: var(--card-bg, #fff);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  margin-bottom: 16px;
+}
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text, #1e293b);
+  margin: 0 0 14px;
+}
+
+/* ===== STEPS ===== */
+.stepsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.84rem;
+  color: var(--text-secondary, #64748b);
+  line-height: 1.5;
+}
+.stepNumber {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== FORM ===== */
+.formRow {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+.orderInput {
+  flex: 1;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.88rem;
+  font-family: monospace;
+  color: var(--text, #1e293b);
+  background: var(--card-bg, #fff);
+  outline: none;
+  transition: border-color 150ms;
+  letter-spacing: 0.5px;
+}
+.orderInput:focus {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 3px rgba(255,107,53,0.1);
+}
+.orderInput::placeholder {
+  color: rgba(0,0,0,0.3);
+  font-family: inherit;
+  letter-spacing: 0;
+}
+.submitBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 150ms;
+  white-space: nowrap;
+}
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+}
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== MESSAGES ===== */
+.errorMsg {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(220,38,38,0.06);
+  color: #dc2626;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+.successMsg {
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(16,185,129,0.06);
+  color: #059669;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+/* ===== HISTORY ===== */
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.historyRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.historyRow:last-child {
+  border-bottom: none;
+}
+.historyIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.historyInfo {
+  flex: 1;
+  min-width: 0;
+}
+.historyOrderCode {
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: monospace;
+  color: var(--text, #1e293b);
+  letter-spacing: 0.5px;
+}
+.historyAmount {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #64748b);
+  margin-top: 2px;
+}
+.historyStatus {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-align: right;
+}
+.statusPending {
+  background: rgba(217,119,6,0.08);
+  color: #d97706;
+}
+.statusApproved {
+  background: rgba(37,99,235,0.08);
+  color: #2563eb;
+}
+.statusPaid {
+  background: rgba(16,185,129,0.08);
+  color: #10b981;
+}
+.statusRejected {
+  background: rgba(220,38,38,0.08);
+  color: #dc2626;
+}
+.historyDate {
+  font-size: 0.68rem;
+  color: var(--text-tertiary, #94a3b8);
+  margin-top: 3px;
+  text-align: right;
+}
+
+/* ===== EMPTY STATE ===== */
+.emptyState {
+  text-align: center;
+  padding: 24px 0;
+}
+.emptyIcon {
+  margin-bottom: 8px;
+}
+.emptyText {
+  font-size: 0.82rem;
+  color: var(--text-tertiary, #94a3b8);
+}
+
+/* ===== NOTE ===== */
+.note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-tertiary, #94a3b8);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .hero {
+    padding: 36px 16px 28px;
+  }
+  .heroTitle {
+    font-size: 1.3rem;
+  }
+  .main {
+    margin-top: -16px;
+  }
+  .formRow {
+    flex-direction: column;
+  }
+  .submitBtn {
+    justify-content: center;
+  }
+}

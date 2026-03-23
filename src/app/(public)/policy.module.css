@@ -1,0 +1,125 @@
+/* ===== POLICY PAGES (About / Terms / Privacy) ===== */
+.policyPage {
+  width: 100%;
+  min-height: 100vh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 24px 80px;
+}
+
+.policyPage > * {
+  width: 100%;
+  max-width: 800px;
+}
+
+.policyHeader {
+  margin-bottom: 40px;
+}
+
+.policyTitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #111;
+  margin: 0 0 8px;
+}
+
+.policySub {
+  font-size: 0.88rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.policyMeta {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: #999;
+}
+
+/* ---- Content sections ---- */
+.policySection {
+  margin-bottom: 32px;
+}
+
+.policySectionTitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 12px;
+}
+
+.policyText {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.85;
+  margin: 0 0 12px;
+}
+
+.policyList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.policyList li {
+  font-size: 0.9rem;
+  color: #333;
+  line-height: 1.85;
+  padding: 3px 0 3px 16px;
+  position: relative;
+}
+
+.policyList li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  color: #333;
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* ---- Back link ---- */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: opacity 200ms ease;
+}
+
+.backLink:hover {
+  opacity: 0.5;
+}
+
+/* ---- Divider between sections ---- */
+.policySection + .policySection {
+  padding-top: 24px;
+  border-top: 1px solid #eee;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .policyPage {
+    padding: 24px 16px 60px;
+  }
+
+  .policyTitle {
+    font-size: 1.4rem;
+  }
+
+  .policyMeta {
+    flex-direction: column;
+    gap: 4px;
+  }
+}

@@ -1,0 +1,839 @@
+/* ═══════════════════════════════════════════
+   Admin Dashboard — Modern Premium (Drivergo-inspired)
+   ═══════════════════════════════════════════ */
+
+/* ── Page Container ── */
+.page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+/* ── Back Link ── */
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #8b95a5;
+  margin-bottom: 20px;
+  transition: color 180ms ease;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  color: #7c3aed;
+}
+
+/* ═══════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════ */
+.header {
+  margin-bottom: 24px;
+}
+
+/* ── Shared Hero Banner ── */
+.heroBanner {
+  background: linear-gradient(135deg, #f97316 0%, #fb923c 40%, #fdba74 100%);
+  border-radius: 18px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBanner::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.heroBanner .eyebrow {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 4px;
+}
+
+.heroTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.03em;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.heroSub {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+  z-index: 1;
+  max-width: 55ch;
+}
+
+.headerTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.headerInfo {
+  flex: 1;
+  min-width: 200px;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #f97316;
+  margin-bottom: 6px;
+}
+
+.header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1d23;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.headerSub {
+  color: #6b7280;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  margin-top: 6px;
+  max-width: 55ch;
+}
+
+.headerBadges {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #ea580c;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* ═══════════════════════════════════════════
+   CONTROLS PANEL
+   ═══════════════════════════════════════════ */
+.controlsPanel {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.controlsHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.controlsTitle {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a0a8b8;
+}
+
+/* ── Buttons ── */
+.btnRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary,
+.btnOutline,
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms ease;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btnPrimary {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
+}
+
+.btnPrimary:hover {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.35);
+  transform: translateY(-1px);
+}
+
+.btnOutline {
+  background: transparent;
+  color: #ea580c;
+  border-color: #fed7aa;
+}
+
+.btnOutline:hover {
+  background: #fff7ed;
+  border-color: #ea580c;
+}
+
+.btnGhost {
+  background: transparent;
+  color: #6b7280;
+  border-color: transparent;
+}
+
+.btnGhost:hover {
+  color: #ea580c;
+  background: #fff7ed;
+}
+
+.btnPrimary:disabled,
+.btnOutline:disabled,
+.btnGhost:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Status Message ── */
+.statusMessage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+/* ── Quick Stats Row ── */
+.quickStats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eef0f3;
+}
+
+.quickStat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: #6b7280;
+}
+
+.quickStat strong {
+  color: #1a1d23;
+  font-weight: 700;
+}
+
+/* ── Test Section ── */
+.testSection {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #eef0f3;
+}
+
+.testLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #a0a8b8;
+  margin-bottom: 10px;
+}
+
+.testInputRow {
+  display: flex;
+  gap: 8px;
+}
+
+.testInput {
+  flex: 1;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e5ea;
+  background: #fafbfc;
+  color: #1a1d23;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 200ms ease;
+}
+
+.testInput:focus {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  background: #ffffff;
+}
+
+.testResult {
+  margin-top: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #fafbfc;
+  font-size: 0.82rem;
+  color: #6b7280;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+/* ═══════════════════════════════════════════
+   STAT CARDS GRID — Modern Card Style
+   ═══════════════════════════════════════════ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-radius: 14px;
+  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+  transition: all 250ms ease;
+}
+
+.statCard:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* No border-top anymore — use subtle left accent */
+.statCard::before {
+  display: none;
+}
+
+.statCardSuccess { border-left: 3px solid #10b981; }
+.statCardInfo { border-left: 3px solid #3b82f6; }
+.statCardWarning { border-left: 3px solid #f59e0b; }
+.statCardDanger { border-left: 3px solid #ef4444; }
+
+.statLabel {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b95a5;
+  margin-bottom: 12px;
+}
+
+.statValue {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1d23;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.statMeta {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: #8b95a5;
+  line-height: 1.4;
+}
+
+/* ── Change Badge (↑ +14.2%) ── */
+.changeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.changeBadgeUp {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.changeBadgeDown {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* ── Status Dots ── */
+.statusDot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.statusDotOk {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.statusDotError {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  flex-shrink: 0;
+  background: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.statValueRow {
+  display: flex;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════════════
+   SECTIONS
+   ═══════════════════════════════════════════ */
+.section {
+  margin-bottom: 24px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.sectionHeader h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1d23;
+  letter-spacing: -0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   CARD — Modern White Card
+   ═══════════════════════════════════════════ */
+.tableCard {
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-radius: 14px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Meta List (Key-Value pairs) ── */
+.metaList {
+  padding: 4px 0;
+}
+
+.metaRow {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.metaRow:last-child {
+  border-bottom: none;
+}
+
+.metaRow:hover {
+  background: #fafbfc;
+}
+
+.metaLabel {
+  flex-shrink: 0;
+  width: 140px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #a0a8b8;
+}
+
+.metaRow code {
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #f4f6f8;
+  color: #1a1d23;
+  word-break: break-all;
+}
+
+/* ═══════════════════════════════════════════
+   DATA TABLES — Modern Clean
+   ═══════════════════════════════════════════ */
+.table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.table th {
+  padding: 14px 20px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b95a5;
+  background: #fafbfc;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.table td {
+  padding: 14px 20px;
+  border-bottom: 1px solid #f1f3f5;
+  color: #374151;
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: background 150ms ease;
+}
+
+.table tbody tr:hover {
+  background: #fafbfc;
+}
+
+.table code {
+  font-size: 0.78rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #f4f6f8;
+  color: #6b7280;
+}
+
+/* ── Status Chips ── */
+.chipOk {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  color: #059669;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.chipFail {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #fef3c7;
+  color: #d97706;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ── Empty State ── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 48px 20px;
+  text-align: center;
+  color: #8b95a5;
+  font-size: 0.88rem;
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+  opacity: 0.4;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .heroBanner {
+    padding: 20px 20px;
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+
+  .heroTitle {
+    font-size: 1.3rem;
+  }
+
+  .heroSub {
+    font-size: 0.8rem;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .headerTop {
+    flex-direction: column;
+  }
+
+  .metaLabel {
+    width: 120px;
+  }
+}
+
+/* ═══ Mobile Premium Compact (Reference: Finance App) ═══ */
+@media (max-width: 480px) {
+
+  /* ── Page ── */
+  .page {
+    padding: 12px 10px 40px;
+  }
+
+  /* ── Hero Banner — ultra compact ── */
+  .heroBanner {
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  .heroBanner::before {
+    width: 100px;
+    height: 100px;
+    top: -30%;
+    right: -5%;
+  }
+  .eyebrow {
+    font-size: 0.55rem;
+    margin-bottom: 2px;
+  }
+  .heroTitle {
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+  }
+  .heroSub {
+    font-size: 0.65rem;
+    max-width: 100%;
+    line-height: 1.3;
+  }
+  .headerBadges {
+    margin-top: 6px !important;
+    gap: 4px;
+  }
+  .badge {
+    font-size: 0.58rem;
+    padding: 2px 8px;
+  }
+
+  /* ── Stat Cards Grid — tight 2-col ── */
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .statCard {
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+  .statCard:hover {
+    transform: none;
+  }
+  .statLabel {
+    font-size: 0.55rem;
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+  }
+  .statValue {
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .statMeta {
+    margin-top: 4px;
+    font-size: 0.58rem;
+  }
+  .changeBadge {
+    padding: 1px 4px;
+    font-size: 0.52rem;
+    border-radius: 4px;
+  }
+
+  /* ── Controls — inline minimal ── */
+  .controlsPanel {
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .controlsHeader {
+    margin-bottom: 6px;
+  }
+  .controlsTitle {
+    font-size: 0.58rem;
+  }
+  .btnRow {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .btnPrimary,
+  .btnOutline,
+  .btnGhost {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 0.65rem;
+    border-radius: 6px;
+    gap: 4px;
+  }
+  .btnPrimary {
+    box-shadow: 0 1px 4px rgba(249, 115, 22, 0.2);
+  }
+
+  /* ── Quick Stats — inline chips ── */
+  .quickStats {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 6px;
+  }
+  .quickStat {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+
+  /* ── Test / Input rows ── */
+  .testInputRow {
+    flex-direction: row;
+    gap: 4px;
+  }
+  .testInput {
+    font-size: 0.68rem;
+    padding: 5px 8px;
+  }
+  .testLabel {
+    font-size: 0.58rem;
+  }
+  .testResult {
+    font-size: 0.6rem;
+  }
+
+  /* ── Metadata rows ── */
+  .metaRow {
+    flex-direction: column;
+    gap: 3px;
+    padding: 8px 10px;
+  }
+  .metaLabel {
+    width: auto;
+    font-size: 0.58rem;
+  }
+  .metaValue {
+    font-size: 0.68rem;
+  }
+
+  /* ── Tables — tight ── */
+  .tableCard {
+    margin: 0 -10px;
+    border-radius: 0;
+  }
+  .table {
+    font-size: 0.7rem;
+  }
+  .table th,
+  .table td {
+    padding: 6px 8px;
+  }
+  .table th {
+    font-size: 0.55rem;
+  }
+
+  /* ── Section headers ── */
+  .section {
+    margin-bottom: 12px;
+  }
+  .sectionHeader {
+    padding: 0 0 6px;
+  }
+  .sectionHeader h2 {
+    font-size: 0.85rem;
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-size: 1rem;
+  }
+
+  /* ── Status Message ── */
+  .statusMessage {
+    font-size: 0.65rem;
+    padding: 4px 8px;
+    margin: 4px 0;
+  }
+
+  /* ── Empty state ── */
+  .emptyState {
+    padding: 20px 12px;
+  }
+  .emptyIcon {
+    font-size: 1.5rem;
+  }
+
+  /* ── Chips ── */
+  .chipOk, .chipWarn, .chipDanger {
+    font-size: 0.58rem;
+    padding: 2px 6px;
+  }
+}

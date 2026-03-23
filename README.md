@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Shopee Aff Site
 
-## Getting Started
+Next.js skeleton cho website Shopee affiliate theo huong sach hon repo tham chieu `shopeelivecoin`.
 
-First, run the development server:
+## Muc tieu
+
+- giu lai phan public marketing dang hoc: deal hub, live hot, flash sale, voucher
+- tach han internal operations khoi public site
+- chuan bi san cho data adapters, tracking redirect, va content routes
+
+## Thu muc chinh
+
+- `src/app`: public routes va UI shell
+- `src/lib`: domain types, adapters, shopee client, cache helpers
+- `docs/reference-reuse.md`: phan nao nen giu tu repo cu
+- `docs/architecture.md`: kien truc website aff de xuat
+- `docs/shopee-endpoints.md`: endpoint va payload da xac nhan
+- `docs/env.md`: danh sach env cho deploy va cron
+- `worker/`: browser sync worker cho VPS
+
+## Chay local
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mo [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Env va API noi bo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Tao `.env.local` tu `.env.example`.
 
-## Learn More
+Bien quan trong:
 
-To learn more about Next.js, take a look at the following resources:
+- `INTERNAL_API_KEY`: bao ve API sync/status noi bo
+- `ADMIN_USERNAME`, `ADMIN_PASSWORD`: Basic Auth cho `/admin` va co the dung lai cho API noi bo
+- `SHOPEE_COOKIE`: cookie phien browser Shopee
+- `SHOPEE_AF_AC_ENC_DAT`, `SHOPEE_AF_AC_ENC_SZ_TOKEN`, `SHOPEE_X_SAP_RI`, `SHOPEE_X_SAP_SEC`: header chong bot neu ban muon goi endpoint duoc bao ve
+- `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`: bat cache store ben ngoai de deploy Vercel on dinh hon
+- `TIENVE_FLASH_DEALS_API_URL`: doi endpoint partner API neu can
+- `TIENVE_CACHE_PAGE_URL`: cache key root cho partner deals (mac dinh `tienve-partner`)
+- `CRON_SECRET`: bao ve route cron `/api/cron/partner-sync`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+API noi bo:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `GET /api/internal/shopee/status`
+- `POST /api/internal/shopee/sync`
+- `POST /api/internal/partner/sync`
 
-## Deploy on Vercel
+Gui them header `x-api-key: <INTERNAL_API_KEY>`.
+Cron route dung header `Authorization: Bearer <CRON_SECRET>`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Partner cache sync cron
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Frontend `/deal` se uu tien doc cache partner trong Supabase (`deals:tienve-partner` va `deals:tienve-partner:{slot}`),
+nen khong phu thuoc request realtime den partner API.
+
+Da them cron route:
+
+- `GET /api/cron/partner-sync`
+
+Neu deploy Vercel, file `vercel.json` da dat lich 15 phut/lần.
+
+Trang admin mini:
+
+- `GET /admin`
+- duoc bao ve bang Basic Auth
+- co them the `Partner API` + bang `Partner sync log` de xem slot nao fail/success
+
+## Cache pipeline
+
+Website uu tien doc cache file trong `output/shopee/cache/` truoc khi thu goi Shopee truc tiep.
+Neu co Supabase env, cache se doc Supabase truoc va dong thoi mirror ve file local.
+
+## Browser worker cho VPS
+
+Neu ban muon lay deal that ma khong phu thuoc local, dung worker Playwright headless:
+
+```bash
+npm run worker:browser-sync -- shopee-sieu-re
+```
+
+Worker nay chay tren VPS, tu mo browser, lay data, va ghi vao Supabase.
+Huong dan day du o [docs/vps-worker.md](/I:/Website/hup-het/shopee-aff-site/docs/vps-worker.md).
+
+Luong khuyen nghi:
+
+1. chay `npm run dev`
+2. o terminal khac, chay `npm run sync:partner-cache -- tienve-partner`
+3. neu can fallback Shopee, chay `npm run sync:shopee-cache -- shopee-sieu-re`
+4. sau do cac trang `/deal`, `/live`, `/voucher` se dung cache local neu co
+
+## Ghi chu van hanh
+
+- `pagebuilder/get_csr_page` la nguon discovery on dinh nhat hien tai
+- `collection/get_items` va `get_vouchers_by_collections` la endpoint duoc bao ve
+- neu khong co browser session hop le, app se roi ve mock data thay vi vo trang
+- tren Vercel, nen tao bang theo [docs/supabase-cache.sql](/I:/Website/hup-het/shopee-aff-site/docs/supabase-cache.sql)
+- env setup day du xem [docs/env.md](/I:/Website/hup-het/shopee-aff-site/docs/env.md)
+- de lay deal that on dinh, nen dung worker browser tren VPS thay vi server fetch truc tiep tu Vercel

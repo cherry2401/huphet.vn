@@ -1,0 +1,598 @@
+/* ─── Hero Banner ─── */
+.hero {
+  background: var(--brand-gradient);
+  border-radius: var(--card-radius);
+  padding: 32px 28px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 154, 0, 0.4), transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.15), transparent 40%);
+  pointer-events: none;
+}
+
+.heroLeft {
+  position: relative;
+}
+
+.heroLeft h1 {
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  font-family: var(--font-body), sans-serif;
+}
+
+.heroSub {
+  margin-top: 10px;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-family: var(--font-body), sans-serif;
+  line-height: 1.5;
+}
+
+.heroStats {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.stat {
+  text-align: center;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(4px);
+  min-width: 76px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.statValue {
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-family: var(--font-body), sans-serif; /* Soften stats to body font */
+  letter-spacing: -0.02em;
+}
+
+.statLabel {
+  font-size: 0.68rem;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-top: 2px;
+  font-family: var(--font-body), sans-serif;
+}
+
+/* ─── How it works ─── */
+.howItWorks {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 20px;
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body), sans-serif;
+}
+
+.howLabel {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.howItWorks span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepNumber {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ─── Toolbar (filter + sort) ─── */
+.toolbar {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  gap: 8px;
+}
+
+.filterBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 180ms ease;
+  font-family: var(--font-body), sans-serif;
+}
+
+.filterBtn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.filterBtnActive {
+  background: var(--brand-gradient) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  box-shadow: 0 3px 12px rgba(238, 77, 45, 0.25);
+}
+
+.sortBtns {
+  display: flex;
+  gap: 8px;
+}
+
+.sortBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 180ms ease;
+  font-family: var(--font-body), sans-serif;
+}
+
+.sortBtnActive {
+  background: var(--brand-soft);
+  color: var(--brand);
+  border-color: var(--brand);
+}
+
+/* ─── Search Bar ─── */
+.searchWrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  transition: border-color 150ms ease;
+}
+
+.searchWrap:focus-within {
+  border-color: var(--brand);
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 0.85rem;
+  color: var(--text);
+  font-family: var(--font-body), sans-serif;
+}
+
+.searchInput::placeholder {
+  color: #9ca3af;
+}
+
+.searchClear {
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+}
+
+.searchClear:hover {
+  color: var(--brand);
+}
+
+/* ─── Grid ─── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+  padding-bottom: 48px;
+}
+
+
+/* ─── Card ─── */
+.card {
+  padding: 16px 14px 12px;
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transition: all 280ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+  border-color: rgba(238, 77, 45, 0.15);
+}
+
+.cardTop {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-color: #fde68a;
+}
+
+.cardTop:hover {
+  border-color: #fbbf24;
+}
+
+.cardTop2 {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-color: #ced4da;
+}
+
+.cardTop2:hover {
+  border-color: #adb5bd;
+}
+
+.cardTop3 {
+  background: linear-gradient(135deg, #fef4ee, #fde8d8);
+  border-color: #f4c09e;
+}
+
+.cardTop3:hover {
+  border-color: #e8a87c;
+}
+
+.rank {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--text);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body), sans-serif;
+}
+
+.rankGold { background: #f59e0b; }
+.rankSilver { background: #94a3b8; }
+.rankBronze { background: #d97706; }
+
+.xuBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  font-family: var(--font-body), sans-serif;
+}
+
+.xuHigh {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.xuMega {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #fff;
+}
+
+.coinIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.coinAmount {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #374151;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-top: 2px;
+}
+
+.xuLabel {
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-family: var(--font-body), sans-serif;
+  text-transform: lowercase;
+}
+
+.shopName {
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.4;
+  margin-top: 6px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  text-align: left;
+  min-height: 2.5em;
+}
+
+.shopIcon {
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  margin-top: 1px;
+}
+
+.startTime {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: var(--font-body), sans-serif;
+  margin-top: auto;
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.timeIcon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.liveBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px 12px;
+  border-radius: 10px;
+  background: var(--brand-gradient);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: all 200ms ease;
+  font-family: var(--font-body), sans-serif;
+  box-shadow: 0 2px 8px rgba(238, 77, 45, 0.18);
+}
+
+.liveBtn:hover {
+  box-shadow: 0 5px 18px rgba(238, 77, 45, 0.35);
+  transform: translateY(-1px);
+}
+
+.empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 56px 24px;
+  border-radius: var(--card-radius);
+  background: var(--surface);
+  border: 2px dashed var(--line);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-family: var(--font-body), sans-serif;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 780px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .hero {
+    padding: 18px 16px;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .heroLeft h1 {
+    font-size: 1.35rem;
+    gap: 8px;
+  }
+
+  .heroSub {
+    font-size: 0.8rem;
+    margin-top: 6px;
+  }
+
+  .heroBadge {
+    font-size: 0.62rem;
+    padding: 3px 7px;
+  }
+
+  .heroStats {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stat {
+    padding: 7px 10px;
+    min-width: 60px;
+  }
+
+  .statValue {
+    font-size: 1rem;
+  }
+
+  .statLabel {
+    font-size: 0.6rem;
+  }
+
+  .howItWorks {
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .toolbar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 6px;
+    margin-top: 14px;
+  }
+
+  .filters {
+    gap: 5px;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+  }
+
+  .filterBtn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    min-width: unset;
+    border-radius: 10px;
+  }
+
+  .sortBtns {
+    gap: 5px;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+  }
+
+  .sortBtn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .card {
+    padding: 12px 10px 10px;
+  }
+
+  .coinAmount {
+    font-size: 1.1rem;
+  }
+
+  .shopName {
+    font-size: 0.75rem;
+    min-height: 2.2em;
+    margin-top: 4px;
+  }
+
+  .startTime {
+    font-size: 0.67rem;
+    padding-top: 2px;
+  }
+
+  .liveBtn {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    margin-top: 5px;
+    border-radius: 8px;
+  }
+
+  .coinIcon {
+    margin-top: 2px;
+  }
+
+  .hero {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  .howItWorks {
+    display: none;
+  }
+}
