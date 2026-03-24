@@ -16,26 +16,51 @@ function isShopeeUrl(value: string) {
   }
 }
 
-function buildFromTemplate(productUrl: string, subId1: string) {
-  const template = process.env.AFFILIATE_LINK_TEMPLATE;
-  if (!template) {
+/**
+ * Extract shopId and itemId from a Shopee product URL.
+ * Supports: shopee.vn/product-name-i.{shopId}.{itemId}
+ *           shopee.vn/opaanlp/{shopId}/{itemId}
+ */
+function extractShopeeIds(productUrl: string): { shopId: string; itemId: string } | null {
+  try {
+    const url = new URL(productUrl);
+    const path = url.pathname;
+    const iMatch = path.match(/-i\.(\d+)\.(\d+)/);
+    if (iMatch) return { shopId: iMatch[1], itemId: iMatch[2] };
+    const slashMatch = path.match(/\/(?:opaanlp|product)\/(\d+)\/(\d+)/);
+    if (slashMatch) return { shopId: slashMatch[1], itemId: slashMatch[2] };
+    return null;
+  } catch {
     return null;
   }
-
-  return template
-    .replaceAll("{{encodedProductUrl}}", encodeURIComponent(productUrl))
-    .replaceAll("{{productUrl}}", productUrl)
-    .replaceAll("{{affiliateId}}", process.env.AFFILIATE_ID ?? "")
-    .replaceAll("{{sub_id1}}", subId1)
-    .replaceAll("{{sub_id2}}", "")
-    .replaceAll("{{sub_id3}}", "")
-    .replaceAll("{{sub_id4}}", "")
-    .replaceAll("{{sub_id5}}", "");
 }
 
-function buildFromMmp(productUrl: string, subId1: string) {
-  const url = new URL(productUrl);
+function buildShopeeAffLink(productUrl: string, subId1: string) {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
+
+  // Try clean URL with share_channel_code for FB voucher
+  const ids = extractShopeeIds(productUrl);
+  if (ids && affiliateId) {
+    const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${subId1}`;
+  }
+
+  // Fallback: template
+  const template = process.env.AFFILIATE_LINK_TEMPLATE;
+  if (template) {
+    return template
+      .replaceAll("{{encodedProductUrl}}", encodeURIComponent(productUrl))
+      .replaceAll("{{productUrl}}", productUrl)
+      .replaceAll("{{affiliateId}}", affiliateId)
+      .replaceAll("{{sub_id1}}", subId1)
+      .replaceAll("{{sub_id2}}", "")
+      .replaceAll("{{sub_id3}}", "")
+      .replaceAll("{{sub_id4}}", "")
+      .replaceAll("{{sub_id5}}", "");
+  }
+
+  // Fallback: MMP params
+  const url = new URL(productUrl);
   if (affiliateId) {
     url.searchParams.set("mmp_pid", `an_${affiliateId}`);
     url.searchParams.set("utm_source", `an_${affiliateId}`);
@@ -65,7 +90,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const affiliateUrl = buildFromTemplate(productUrl, subId1) ?? buildFromMmp(productUrl, subId1);
+  const affiliateUrl = buildShopeeAffLink(productUrl, subId1);
 
   if (!shorten) {
     return NextResponse.json({
