@@ -54,10 +54,10 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
 function buildShopeeLink(productUrl: string, subId1: string): string {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
 
-  // Use /product/ format (NOT /opaanlp/) — required for FB voucher activation
+  // Match addlivetag.com format: /opaanlp/, no share_channel_code
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
-    const cleanOriginLink = `https://shopee.vn/product/${ids.shopId}/${ids.itemId}`;
+    const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
     return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${subId1}`;
   }
 
