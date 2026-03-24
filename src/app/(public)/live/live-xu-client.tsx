@@ -82,13 +82,13 @@ export function LiveXuClient({ initialSessions }: { initialSessions: LiveSession
         <div className={styles.heroStats}>
           <div className={styles.stat}>
             <div className={styles.statValue}>{sessions.length}</div>
-            <div className={styles.statLabel}>Tổng ra</div>
+            <div className={styles.statLabel}>Phiên live</div>
           </div>
           <div className={styles.stat}>
             <div className={styles.statValue}>
               {sessions.filter((s) => (s.maxcoin ?? 0) >= 2000).length}
             </div>
-            <div className={styles.statLabel}>Số shop</div>
+            <div className={styles.statLabel}>Xu nhiều</div>
           </div>
           <div className={styles.stat}>
             <div className={styles.statValue}>
