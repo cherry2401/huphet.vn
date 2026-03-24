@@ -54,11 +54,11 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
 function buildShopeeLink(productUrl: string, subId1: string): string {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
 
-  // Match addlivetag.com format: /opaanlp/, no share_channel_code
+  // Match cuongtws.vn format: /opaanlp/ + share_channel_code=4 for FB voucher
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
     const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
-    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${subId1}`;
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${subId1}`;
   }
 
   // Fallback: use template or MMP if can't extract IDs

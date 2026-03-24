@@ -38,13 +38,13 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
 function buildShopeeAffLink(productUrl: string, subId1: string) {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
 
-  // Match addlivetag.com format: /opaanlp/, no share_channel_code, addlivetag- prefix
-  // Prefix addlivetag- to sub_id — Shopee uses this to identify FB traffic for exclusive vouchers
+  // Match cuongtws.vn format exactly: /opaanlp/ + share_channel_code=4 + addlivetag- prefix
+  // share_channel_code=4 = Facebook channel — triggers FB exclusive voucher 22%
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
     const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
     const fbSubId = `addlivetag-${subId1}---`;
-    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
 
   // Fallback: template
