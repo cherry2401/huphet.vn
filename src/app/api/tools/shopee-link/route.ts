@@ -38,11 +38,11 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
 function buildShopeeAffLink(productUrl: string, subId1: string) {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
 
-  // Try clean URL with share_channel_code for FB voucher
+  // Use /product/ format (NOT /opaanlp/) — required for FB voucher activation
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
-    const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
-    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${subId1}`;
+    const cleanOriginLink = `https://shopee.vn/product/${ids.shopId}/${ids.itemId}`;
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${subId1}`;
   }
 
   // Fallback: template
