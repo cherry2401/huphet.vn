@@ -342,12 +342,14 @@
 
 /* ===== LIVE CARDS ===== */
 .liveGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 16px;
 }
 
 .liveCard {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
   background: var(--surface);
   border-radius: 16px;
   border: 1px solid var(--line);
@@ -389,6 +391,7 @@
   align-items: baseline;
   justify-content: center;
   gap: 4px;
+  overflow: hidden;
 }
 
 .liveCoinNum {
@@ -396,12 +399,14 @@
   font-size: 2rem;
   font-weight: 900;
   color: var(--brand);
+  white-space: nowrap;
 }
 
 .liveCoinLabel {
   font-size: 0.82rem;
   color: var(--muted);
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .liveShop {
@@ -901,7 +906,8 @@
 
   .liveGrid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    gap: 8px;
+    overflow: hidden;
   }
 
   .voucherGrid {
@@ -948,7 +954,8 @@
   }
 
   .liveCard {
-    padding: 16px 12px;
+    padding: 14px 8px;
+    min-width: 0;
   }
 
   .liveCoinNum {
@@ -1072,12 +1079,12 @@
   }
 
   .liveGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    gap: 6px;
   }
 
   .liveCard {
-    padding: 12px 8px;
+    padding: 10px 6px;
+    min-width: 0;
   }
 
   .liveCoinNum {
