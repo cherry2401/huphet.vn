@@ -39,10 +39,12 @@ function buildShopeeAffLink(productUrl: string, subId1: string) {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
 
   // Use /product/ format (NOT /opaanlp/) — required for FB voucher activation
+  // Prefix addlivetag- to sub_id — Shopee uses this to identify FB traffic for exclusive vouchers
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
     const cleanOriginLink = `https://shopee.vn/product/${ids.shopId}/${ids.itemId}`;
-    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${subId1}`;
+    const fbSubId = `addlivetag-${subId1}---`;
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
 
   // Fallback: template
