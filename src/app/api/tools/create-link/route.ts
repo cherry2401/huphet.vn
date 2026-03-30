@@ -51,36 +51,44 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
   }
 }
 
+/**
+ * Resolve a short Shopee URL (s.shopee.vn/xxx) to the full product URL
+ */
+async function resolveShortLink(shortUrl: string): Promise<string> {
+  try {
+    const parsed = new URL(shortUrl);
+    if (parsed.hostname !== "s.shopee.vn" || parsed.pathname === "/an_redir") {
+      return shortUrl;
+    }
+    const res = await fetch(shortUrl, { redirect: "manual" });
+    const location = res.headers.get("location");
+    if (location && location.includes("shopee.vn")) {
+      return location;
+    }
+    return shortUrl;
+  } catch {
+    return shortUrl;
+  }
+}
+
 function buildShopeeLink(productUrl: string, subId1: string): string {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
+  const fbSubId = `addlivetag-${subId1}---`;
 
   // Match cuongtws.vn format: /opaanlp/ + share_channel_code=4 for FB voucher
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
     const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
-    const fbSubId = `addlivetag-${subId1}---`;
     return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
 
-  // Fallback: use template or MMP if can't extract IDs
-  const template = process.env.AFFILIATE_LINK_TEMPLATE;
-  if (template) {
-    return template
-      .replaceAll("{{encodedProductUrl}}", encodeURIComponent(productUrl))
-      .replaceAll("{{productUrl}}", productUrl)
-      .replaceAll("{{affiliateId}}", affiliateId)
-      .replaceAll("{{sub_id1}}", subId1)
-      .replaceAll("{{sub_id2}}", "")
-      .replaceAll("{{sub_id3}}", "")
-      .replaceAll("{{sub_id4}}", "")
-      .replaceAll("{{sub_id5}}", "");
-  }
-  // Fallback MMP
-  const url = new URL(productUrl);
+  // Fallback: still use share_channel_code=4 + addlivetag format
   if (affiliateId) {
-    url.searchParams.set("mmp_pid", `an_${affiliateId}`);
-    url.searchParams.set("utm_source", `an_${affiliateId}`);
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(productUrl)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
+
+  // Last resort: MMP params (no affiliate ID configured)
+  const url = new URL(productUrl);
   url.searchParams.set("utm_medium", "affiliates");
   url.searchParams.set("utm_content", subId1 || "web");
   url.searchParams.set("utm_campaign", "-");
@@ -116,7 +124,7 @@ export async function POST(request: Request) {
     body = {};
   }
 
-  const productUrl = body.productUrl?.trim() ?? "";
+  let productUrl = body.productUrl?.trim() ?? "";
   const subId1 = (body.subId1 ?? process.env.AFFILIATE_SUB_ID1 ?? "web").trim();
   const shorten = body.shorten !== false;
 
@@ -135,6 +143,11 @@ export async function POST(request: Request) {
       { ok: false, error: "Không nhận diện được sàn. Vui lòng nhập link từ Shopee, Lazada hoặc TikTok Shop." },
       { status: 400 },
     );
+  }
+
+  // Resolve short links for Shopee
+  if (provider === "shopee") {
+    productUrl = await resolveShortLink(productUrl);
   }
 
   let affiliateUrl: string;

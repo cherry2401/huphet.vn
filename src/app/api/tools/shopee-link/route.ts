@@ -17,6 +17,28 @@ function isShopeeUrl(value: string) {
 }
 
 /**
+ * Resolve a short Shopee URL (s.shopee.vn/xxx) to the full product URL
+ * by following the redirect chain.
+ */
+async function resolveShortLink(shortUrl: string): Promise<string> {
+  try {
+    const parsed = new URL(shortUrl);
+    // Only resolve s.shopee.vn short links
+    if (parsed.hostname !== "s.shopee.vn" || parsed.pathname === "/an_redir") {
+      return shortUrl;
+    }
+    const res = await fetch(shortUrl, { redirect: "manual" });
+    const location = res.headers.get("location");
+    if (location && location.includes("shopee.vn")) {
+      return location;
+    }
+    return shortUrl;
+  } catch {
+    return shortUrl;
+  }
+}
+
+/**
  * Extract shopId and itemId from a Shopee product URL.
  * Supports: shopee.vn/product-name-i.{shopId}.{itemId}
  *           shopee.vn/opaanlp/{shopId}/{itemId}
@@ -37,36 +59,23 @@ function extractShopeeIds(productUrl: string): { shopId: string; itemId: string 
 
 function buildShopeeAffLink(productUrl: string, subId1: string) {
   const affiliateId = process.env.AFFILIATE_ID ?? "";
+  const fbSubId = `addlivetag-${subId1}---`;
 
   // Match cuongtws.vn format exactly: /opaanlp/ + share_channel_code=4 + addlivetag- prefix
   // share_channel_code=4 = Facebook channel — triggers FB exclusive voucher 22%
   const ids = extractShopeeIds(productUrl);
   if (ids && affiliateId) {
     const cleanOriginLink = `https://shopee.vn/opaanlp/${ids.shopId}/${ids.itemId}`;
-    const fbSubId = `addlivetag-${subId1}---`;
     return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanOriginLink)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
 
-  // Fallback: template
-  const template = process.env.AFFILIATE_LINK_TEMPLATE;
-  if (template) {
-    return template
-      .replaceAll("{{encodedProductUrl}}", encodeURIComponent(productUrl))
-      .replaceAll("{{productUrl}}", productUrl)
-      .replaceAll("{{affiliateId}}", affiliateId)
-      .replaceAll("{{sub_id1}}", subId1)
-      .replaceAll("{{sub_id2}}", "")
-      .replaceAll("{{sub_id3}}", "")
-      .replaceAll("{{sub_id4}}", "")
-      .replaceAll("{{sub_id5}}", "");
+  // Fallback: still use share_channel_code=4 + addlivetag format with original URL
+  if (affiliateId) {
+    return `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(productUrl)}&share_channel_code=4&affiliate_id=${affiliateId}&sub_id=${fbSubId}`;
   }
 
-  // Fallback: MMP params
+  // Last resort: MMP params (no affiliate ID configured)
   const url = new URL(productUrl);
-  if (affiliateId) {
-    url.searchParams.set("mmp_pid", `an_${affiliateId}`);
-    url.searchParams.set("utm_source", `an_${affiliateId}`);
-  }
   url.searchParams.set("utm_medium", "affiliates");
   url.searchParams.set("utm_content", subId1 || "web");
   url.searchParams.set("utm_campaign", "-");
@@ -81,7 +90,7 @@ export async function POST(request: Request) {
     body = {};
   }
 
-  const productUrl = body.productUrl?.trim() ?? "";
+  let productUrl = body.productUrl?.trim() ?? "";
   const subId1 = (body.subId1 ?? process.env.AFFILIATE_SUB_ID1 ?? "web").trim();
   const shorten = body.shorten !== false;
 
@@ -91,6 +100,9 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+
+  // Resolve short links (s.shopee.vn/xxx) → full product URL
+  productUrl = await resolveShortLink(productUrl);
 
   const affiliateUrl = buildShopeeAffLink(productUrl, subId1);
 
